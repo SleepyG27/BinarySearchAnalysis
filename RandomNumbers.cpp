@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <cstdlib>   // For rand() and srand()
+#include <ctime>     // For time()
 using namespace std;
 
 // Recursive Binary Search
@@ -42,15 +44,19 @@ int sequentialSearch(const vector<int>& vec, int target) {
 }
 
 int main() {
-    // Initialize a vector with test data
-    vector<int> vec = {3, 5, 2, 8, 6, 1, 9, 4, 7};
+    srand(static_cast<unsigned int>(time(0))); // Seed for random number generation
+
+    // Fill vector with random numbers between 1 and 100
+    vector<int> vec(10); // Adjust size as needed
+    for (int &item : vec) {
+        item = rand() % 100 + 1;
+    }
 
     // Sort the vector for binary search
     sort(vec.begin(), vec.end());
 
-    // Set up targets
-    int target1 = 5; // Item in the list
-    int target2 = 10; // Item not in the list
+    // Generate a random target between 1 and 100
+    int target = rand() % 100 + 1;
 
     // Display the contents of the vector
     cout << "Vector contents: ";
@@ -59,25 +65,25 @@ int main() {
     cout << endl;
 
     // Recursive Binary Search
-    int index = recursiveBinarySearch(vec, 0, vec.size() - 1, target1);
-    cout << "Recursive Binary Search: Target " << target1 << " found at location " << index << endl;
-
-    index = recursiveBinarySearch(vec, 0, vec.size() - 1, target2);
-    cout << "Recursive Binary Search: Target " << target2 << " was not found, return value is " << index << endl;
+    int index = recursiveBinarySearch(vec, 0, vec.size() - 1, target);
+    if (index >= 0)
+        cout << "Recursive Binary Search: Target " << target << " found at location " << index << endl;
+    else
+        cout << "Recursive Binary Search: Target " << target << " was not found" << endl;
 
     // Iterative Binary Search
-    index = iterativeBinarySearch(vec, target1);
-    cout << "Iterative Binary Search: Target " << target1 << " found at location " << index << endl;
-
-    index = iterativeBinarySearch(vec, target2);
-    cout << "Iterative Binary Search: Target " << target2 << " was not found, return value is " << index << endl;
+    index = iterativeBinarySearch(vec, target);
+    if (index >= 0)
+        cout << "Iterative Binary Search: Target " << target << " found at location " << index << endl;
+    else
+        cout << "Iterative Binary Search: Target " << target << " was not found" << endl;
 
     // Sequential Search
-    index = sequentialSearch(vec, target1);
-    cout << "Sequential Search: Target " << target1 << " found at location " << index << endl;
-
-    index = sequentialSearch(vec, target2);
-    cout << "Sequential Search: Target " << target2 << " was not found, return value is " << index << endl;
+    index = sequentialSearch(vec, target);
+    if (index >= 0)
+        cout << "Sequential Search: Target " << target << " found at location " << index << endl;
+    else
+        cout << "Sequential Search: Target " << target << " was not found" << endl;
 
     return 0;
 }
