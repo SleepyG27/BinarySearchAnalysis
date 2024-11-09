@@ -9,7 +9,7 @@
 using namespace std;
 using namespace std::chrono;
 
-const int N = 100000; // Starting size of the array
+const int N = 1000000; // Starting size of the array
 double SumRBS = 0.0;
 double SumIBS = 0.0;
 double SumSeqS = 0.0;
